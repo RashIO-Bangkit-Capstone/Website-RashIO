@@ -53,10 +53,10 @@ export default function Header() {
             <ul className="flex flex-grow justify-end flex-wrap items-center">
               <li>
                 <a
-                  href="/"
+                  href="#features"
                   className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
                 >
-                  Careers
+                  Features
                 </a>
               </li>
               <li>
@@ -64,7 +64,7 @@ export default function Header() {
                   href="/"
                   className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
                 >
-                  About Us
+                  Our Team
                 </a>
               </li>
               <li>

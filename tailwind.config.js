@@ -1,6 +1,5 @@
 module.exports = {
   purge: ["./components/**/*.js", "./pages/**/*.js"],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -23,10 +22,10 @@ module.exports = {
         gray: "#434343",
         white: "#FFFFFF",
       },
-    },
+    }
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")]
 };
