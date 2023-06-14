@@ -1,156 +1,78 @@
+import { AiFillAndroid, AiFillGithub, AiOutlineApi } from "react-icons/ai";
+
 export default function Footer() {
   return (
     <footer className="pb-4 bg-gradient-to-b from-white to-neutral">
       <div className="max-w-6xl xl:max-w-6xl mx-auto divide-y divide-gray-200 px-4 sm:px-6 md:px-8">
-        <ul className="Footer_nav__2rFid text-sm font-medium  sm:pb-20 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10">
-          <li className="space-y-5 row-span-2">
-            <h2 className="text-sm tracking-wide text-gray-900 uppercase font-bold">
-              Company
-            </h2>
-            <ul className="space-y-4 text-md">
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Jobs
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Merch
-                </a>
-              </li>{" "}
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Brand
-                </a>
-              </li>{" "}
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Meetups
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="space-y-5 row-span-2">
-            <h2 className="text-sm tracking-wide text-gray-900 uppercase font-bold">
-              Newsroom
-            </h2>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  News
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Press
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="space-y-5 row-span-2">
-            <h2 className="text-sm tracking-wide text-gray-900 uppercase font-bold">
-              Products
-            </h2>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Hosting
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Domains
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Security
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  SSL
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="space-y-5">
-            <h2 className="text-sm tracking-wide text-gray-900 uppercase font-bold">
-              Connect
-            </h2>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 text-2xl"
-                  href="/"
-                >
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a
-                  className="hover:text-gray-900 transition-colors duration-200 font-semibold text-2xl"
-                  href="/"
-                >
-                  Instagram
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div className="flex flex-col-reverse justify-center pt-5 pb-4 border-t lg:flex-row bg-top border-black">
+        <div className="footer p-10 justify-between">
+          <div>
+            <img
+              src="/images/RashIO-Logo.png"
+              className="max-h-32 mr-4  p-1 rounded-md"
+            />
+            <p>
+              RashIO
+              <br />
+              Capstone Project @ Bangkit 2023
+            </p>
+          </div>
+
+          <div>
+            <span className="uppercase font-bold text-lg text-primary">
+              Resources
+            </span>
             <a
-              href="/"
-              className="text-md text-black transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold tracking-tight"
+              className="link link-hover flex items-center text-base"
+              href="https://github.com/RashIO-Bangkit-Capstone"
+              target="_blank"
             >
-              © 2021 RashIO.
+              <AiFillAndroid className="mr-2" />
+              Application
             </a>
+            <a
+              className="link link-hover flex items-center text-base"
+              href="https://github.com/RashIO-Bangkit-Capstone"
+              target="_blank"
+            >
+              <AiFillGithub className="mr-2" />
+              Github
+            </a>
+            <a
+              className="link link-hover flex items-center text-base"
+              href="https://www.rashio.software/api/documentation"
+              target="_blank"
+            >
+              <AiOutlineApi className="mr-2" />
+              API Documentation
+            </a>
+          </div>
+
+          <div>
+            <span className="uppercase text-lg font-bold">Newsletter</span>
+            <div className="form-control w-80">
+              <label className="label">
+                <span className="">Enter your email address</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="username@site.com"
+                  className="input input-bordered w-full pr-16 bg-transparent border-primary"
+                />
+                <button className="btn bg-primary border-primary absolute top-0 right-0 rounded-l-none text-white">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col-reverse justify-center pt-5 pb-4 border-t lg:flex-row bg-top border-primary">
+          <a
+            href="/"
+            className="text-md text-primary transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold tracking-tight"
+          >
+            © 2023 RashIO.
+          </a>
         </div>
       </div>
     </footer>

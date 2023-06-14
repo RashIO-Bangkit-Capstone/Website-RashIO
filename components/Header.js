@@ -13,7 +13,7 @@ export default function Header() {
           >
             <img 
               src="/images/RashIO-Logo.png"
-              className="max-w-12 max-h-12 mr-4 bg-white p-1 rounded-md"
+              className="max-h-12 mr-4 bg-white p-1 rounded-md"
             />
             <h1 className="text-4xl Avenir tracking-tighter text-gray-900 md:text-4x1 lg:text-3xl">
               RashIO
@@ -61,7 +61,7 @@ export default function Header() {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="#teams"
                   className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
                 >
                   Our Team
