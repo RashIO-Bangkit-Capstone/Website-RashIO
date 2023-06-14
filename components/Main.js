@@ -11,9 +11,7 @@ export default function Main() {
             We are aware about your skin
           </h1>
           <p className="mb-4 xl:w-3/4 text-gray-600 text-lg">
-            RashIO is a skin disease detection app that uses machine learning to
-            detect skin diseases. It is a mobile app that can be used by anyone
-            and anywhere.
+            Stay Informed, Take Action. Detection and Prevention in One Place!
           </p>
           {/* <div className="flex justify-center">
             <a
@@ -36,7 +34,6 @@ export default function Main() {
       <Features />
       <Powered />
       <Teams />
-
     </section>
   );
 }

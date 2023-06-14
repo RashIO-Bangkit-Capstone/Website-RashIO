@@ -10,7 +10,7 @@ export default function Powered() {
       <div className="flex items-center flex-row flex-wrap justify-center">
         <div className="flex items-center justify-center w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 p-4">
           <img
-            src="/images/Gundar-Logo.png"
+            src="/images/gundar.png"
             alt="Universitas Gunadarma Logo"
             className="block object-contain w-7/12 greyC"
           ></img>
@@ -18,7 +18,7 @@ export default function Powered() {
 
         <div className="flex items-center justify-center w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 p-4">
           <img
-            src="/images/Mercu-Buana-Logo.png"
+            src="/images/mercu.png"
             alt="Universitas Mercu Buana Logo"
             className="block object-contain w-4/6 greyC"
           ></img>
@@ -26,7 +26,7 @@ export default function Powered() {
 
         <div className="flex items-center justify-center w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 p-4">
           <img
-            src="/images/Esa-Unggul-Logo.png"
+            src="/images/esaunggul.png"
             alt="Universitas Esa Unggul Logo"
             className="block object-contain w-7/12 greyC"
           ></img>
@@ -34,7 +34,7 @@ export default function Powered() {
 
         <div className="flex items-center justify-center w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 p-4">
           <img
-            src="/images/Bangkit-Logo.png"
+            src="/images/bangkit.png"
             alt="Bangkit Academy Logo"
             className="block object-contain w-10/12 greyC"
           ></img>
@@ -42,7 +42,7 @@ export default function Powered() {
 
         <div className="flex items-center justify-center w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 p-4">
           <img
-            src="/images/Kampus-Merdeka-Logo.png"
+            src="/images/km.png"
             alt="Kampus Merdeka Logo"
             className="block object-contain w-4/6 greyC"
           ></img>
