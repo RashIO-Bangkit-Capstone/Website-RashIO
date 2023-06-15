@@ -98,17 +98,17 @@ export default function Teams() {
               </div>
             </div>
             <div className="flex flex-col items-center justify-center w-1/3 sm:w-1/3 md:w-1/6 lg:w-1/6 p-5">
-              <img src="/images/teams/Farhan.png" className=""></img>
+              <img src="/images/teams/Lysa.png" className=""></img>
               <span className="text-lg font-bold">Lysa Apriani</span>
               <span className="text-base">Machine Learning</span>
               <div className="flex flex-row gap-2">
-                <a href="" target="_blank" className="text-2xl">
+                <a href="https://www.instagram.com/lysaaprianii" target="_blank" className="text-2xl">
                   <AiOutlineInstagram />
                 </a>
-                <a href="https://www.linkedin.com/in/" target="_blank" className="text-2xl">
+                <a href="https://www.linkedin.com/in/lysa-apriani-7a151a214/" target="_blank" className="text-2xl">
                   <AiOutlineLinkedin />
                 </a>
-                <a href="" target="_blank" className="text-2xl">
+                <a href="https://www.github.com/Lysaapriani" target="_blank" className="text-2xl">
                   <AiOutlineGithub />
                 </a>
               </div>
