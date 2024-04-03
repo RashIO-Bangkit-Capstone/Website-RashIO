@@ -53,13 +53,13 @@ jobs:
       - name: Update Docker Compose via SSH
         uses: appleboy/ssh-action@v1.0.3
         env:
-          VERSION: ${{ needs.preparation.outputs.SHA }}
+          SHA: ${{ needs.preparation.outputs.SHA }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: VERSION
+          envs: SHA
           script: |
             cd /app
             sed -i "s/image: ghcr.io/rashio-bangkit-capstone/rashio-web:.*/image: image: ghcr.io/rashio-bangkit-capstone/rashio-web:$SHA/g" compose.yaml
