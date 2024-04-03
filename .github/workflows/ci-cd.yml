@@ -1,7 +1,6 @@
 name: CI/CD
 
-permissions:
-  actions: write
+permissions: write-all
 
 on:  
   push:
