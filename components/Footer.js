@@ -39,7 +39,7 @@ export default function Footer() {
             </a>
             <a
               className="link link-hover flex items-center text-base"
-              href="https://www.rashio.software/api/documentation"
+              href="https://api.rashio.software/v1/documentation"
               target="_blank"
             >
               <AiOutlineApi className="mr-2" />
