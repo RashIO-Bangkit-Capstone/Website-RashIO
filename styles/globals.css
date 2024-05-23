@@ -4,56 +4,59 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: white;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+        Helvetica Neue, sans-serif;
+    background-color: white;
 
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .g327 {
-  border-color: #302f30;
+    border-color: #302f30;
 }
 
 @font-face {
-  font-family: "AvenirNextW10-Bold";
-  src: url("../public/fonts/AvenirNext.ttf");
-
+    font-family: 'AvenirNextW10-Bold';
+    src: url('../public/fonts/AvenirNext.ttf');
 }
 
 .Avenir {
-  font-family: AvenirNextW10-Bold;
-  font-display: swap;
+    font-family: AvenirNextW10-Bold;
+    font-display: swap;
 }
 
 .clearNav {
-  backdrop-filter: saturate(180%) blur(5px) !important;
-  background-color: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: saturate(180%) blur(5px) !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .grr {
-  grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .greyC {
-  filter: gray;
-  -webkit-filter: grayscale(100%); 
-  transition: 0.4s;
+    filter: gray;
+    -webkit-filter: grayscale(100%);
+    transition: 0.4s;
 }
 
 .greyC:hover {
-  filter: none;
-  -webkit-filter: none;
-  transition: 0.4s;
+    filter: none;
+    -webkit-filter: none;
+    transition: 0.4s;
+}
+
+ul {
+    padding-left: 32px;
 }
