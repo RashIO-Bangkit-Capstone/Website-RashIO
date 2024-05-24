@@ -64,5 +64,6 @@ jobs:
           envs: SHA
           script: |
             cd ~
-            sed -i "s/image: ghcr.io\/rashio-bangkit-capstone\/rashio-web:.*/image: ghcr.io\/rashio-bangkit-capstone\/rashio-web:$SHA/g" compose.yaml
+            ls -l
+            sed -i "s/image: ghcr.io\/rashio-bangkit-capstone\/rashio-web:.*/image: ghcr.io\/rashio-bangkit-capstone\/rashio-web:$SHA/g" docker-compose.yml
             docker compose up rashio-web -d
