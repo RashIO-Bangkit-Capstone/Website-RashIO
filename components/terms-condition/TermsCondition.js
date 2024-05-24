@@ -3,8 +3,6 @@ import React from 'react';
 const TermsCondition = () => {
     return (
         <div className='text-justify p-4'>
-            <h1 className='font-bold text-2xl mb-4'>Terms & Conditions</h1>
-
             <p>
                 These terms and conditions apply to the RashIO app (hereby referred to as "Application") for mobile
                 devices that was created by RashIO (hereby referred to as "Service Provider") as a Free service.
