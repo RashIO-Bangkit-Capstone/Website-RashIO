@@ -62,6 +62,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           envs: SHA
+          timeout: 3600
           script: |
             cd ~
             sudo ls -l
