@@ -445,6 +445,213 @@ const questionnaire = {
       scores13: [1, 2, 3, 4, 0],
     },
   ],
+  section4: [
+    {
+      question1: "Apakah Anda memiliki kerutan di wajah?",
+      answers1: [
+        "Tidak, bahkan dengan gerakan seperti tersenyum, mengerutkan kening, atau mengangkat alis",
+        "Hanya ketika saya bergerak, seperti tersenyum, mengerutkan kening atau mengangkat alis",
+        "Ya, dengan gerakan dan ada pula yang diam tanpa bergerak",
+        "Kerutan tetap ada meskipun saya tidak tersenyum, mengerutkan kening, atau mengangkat alis",
+      ],
+      scores1: [1, 2, 3, 4],
+    },
+    {
+      question2: "Berapa umur/tampilan kulit wajah ibu Anda?",
+      answers2: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores2: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question3: "Berapa umur/tampilan kulit wajah ayah Anda?",
+      answers3: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores3: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question4: "Berapa umur/tampilan kulit wajah nenek dari pihak ibu Anda?",
+      answers4: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores4: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question5: "Berapa umur/tampilan kulit wajah kakek dari pihak ibu Anda?",
+      answers5: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores5: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question6: "Berapa umur/tampilan kulit wajah nenek dari pihak ayah Anda?",
+      answers6: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores6: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question7: "Berapa umur/tampilan kulit wajah kakek dari pihak ayah Anda?",
+      answers7: [
+        "5 sampai 10 tahun lebih muda dari usianya",
+        "Sesuai usianya",
+        "5 tahun lebih tua dari usianya",
+        "Lebih dari lima tahun lebih tua dari usianya",
+        "Tidak berlaku: Saya diadopsi atau saya tidak dapat mengingatnya",
+      ],
+      scores7: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question8:
+        "Kapan pun dalam hidup Anda, pernahkah Anda melakukan penyamakan kulit secara terus-menerus selama lebih dari dua minggu dalam setahun? Jika ya, selama berapa tahun terakhir Anda melakukan hal ini? Silakan hitung tanning mulai dari bermain tenis, memancing, bermain golf, ski, atau aktivitas luar ruangan lainnya. Pantai bukanlah satu-satunya tempat Anda bisa berjemur.",
+      answers8: [
+        "Tidak pernah",
+        "1 hingga 5 tahun",
+        "5 hingga 10 tahun",
+        "Lebih dari 10 tahun",
+      ],
+      scores8: [1, 2, 3, 4],
+    },
+    {
+      question9:
+        "Kapan pun dalam hidup Anda, pernahkah Anda melakukan penyamakan kulit musiman selama dua minggu per tahun atau kurang? (Ya, liburan musim panas itu penting!) Jika ya, seberapa sering?",
+      answers9: [
+        "Tidak pernah",
+        "1 hingga 5 tahun",
+        "5 hingga 10 tahun",
+        "Lebih dari 10 tahun",
+      ],
+      scores9: [1, 2, 3, 4],
+    },
+    {
+      question10:
+        "Berdasarkan tempat tinggal Anda, berapa banyak paparan sinar matahari harian yang Anda terima dalam hidup Anda?",
+      answers10: [
+        "Sedikit; Saya kebanyakan tinggal di tempat yang kelabu dan mendung",
+        "Kadang; Saya pernah tinggal di iklim yang tidak terlalu cerah, namun juga cuaca yang cerah",
+        "Sedang; Saya pernah tinggal di tempat dengan paparan sinar matahari yang cukup banyak",
+        "Sering; Saya sering tinggal di daerah tropis, utara, atau sangat cerah",
+      ],
+      scores10: [1, 2, 3, 4],
+    },
+    {
+      question11: "Menurut Anda, berapa umur Anda?",
+      answers11: [
+        "1 hingga 5 tahun lebih muda dari usia Anda",
+        "Usia Anda",
+        "5 tahun lebih tua dari usia Anda",
+        "Lebih dari 5 tahun lebih muda dari usia Anda",
+      ],
+      scores11: [1, 2, 3, 4],
+    },
+    {
+      question12:
+        "Selama lima tahun terakhir, seberapa sering Anda membiarkan kulit Anda menjadi kecokelatan secara sengaja atau tidak sengaja melalui olahraga luar ruangan atau aktivitas lainnya?",
+      answers12: [
+        "Tidak pernah",
+        "Sebulan sekali",
+        "Seminggu sekali",
+        "Harian",
+      ],
+      scores12: [1, 2, 3, 4],
+    },
+    {
+      question13: "Seberapa sering, jika pernah, Anda mengunjungi tanning bed?",
+      answers13: [
+        "Tidak pernah",
+        "1 hingga 5 kali",
+        "5 hingga 10 kali",
+        "Sering",
+      ],
+      scores13: [1, 2, 3, 4],
+    },
+    {
+      question14:
+        "Sepanjang hidup Anda, berapa banyak rokok yang Anda hisap (atau pernah Anda konsumsi)?",
+      answers14: [
+        "Tidak pernah",
+        "Beberapa bungkus",
+        "Beberapa hingga banyak paket",
+        "Saya merokok tiap hari",
+        "Saya tidak merokok, tapi tinggal di lingkungan dengan seseorang yang aktif merokok",
+      ],
+      scores14: [1, 2, 3, 4, 2.5],
+    },
+    {
+      question15: "Tolong jelaskan polusi udara di tempat Anda tinggal",
+      answers15: [
+        "Udara segar dan bersih",
+        "Untuk sebagian tahun, tapi tidak sepanjang tahun, saya tinggal di tempat yang udaranya bersih.",
+        "Udara sedikit tercemar.",
+        "Udara sangat tercemar.",
+      ],
+      scores15: [1, 2, 3, 4],
+    },
+    {
+      question16:
+        "Tolong jelaskan berapa lama Anda menggunakan krim wajah retinoid seperti retinol, Renova, Retin-A, Tazorac, Differin atau Rata-rata",
+      answers16: [
+        "Bertahun-tahun",
+        "Kadang-kadang.",
+        "Pernah berjerawat ketika saya masih muda. Tidak pernah",
+        "Tidak pernah",
+      ],
+      scores16: [1, 2, 3, 4],
+    },
+    {
+      question17: "Seberapa sering Anda saat ini makan buah dan sayur?",
+      answers17: [
+        "Setiap kali makan",
+        "Sehari sekali",
+        "Kadang-kadang",
+        "Tidak pernah",
+      ],
+      scores17: [1, 2, 3, 4],
+    },
+    {
+      question18:
+        "Sepanjang hidup Anda, berapa persentase makanan harian Anda yang terdiri dari buah-buahan dan sayur-sayuran? (Note: jangan menghitung jus kecuali jus segar.)",
+      answers18: ["75-100%", "25-75%", "10-25%", "0-25%"],
+      scores18: [1, 2, 3, 4],
+    },
+    {
+      question19:
+        "Apa warna kulit alami Anda (tanpa tanning atau self-tanners)?",
+      answers19: ["Gelap", "Medium", "Cerah", "Sangat cerah"],
+      scores19: [1, 2, 3, 4],
+    },
+    {
+      question20: "Apa etnismu? (Silakan pilih jawaban terbaik)",
+      answers20: [
+        "Afrika-Amerika/Karibia/Kulit Hitam",
+        "Asia/India/Mediterania/Lainnya",
+        "Amerika Latin/Hispanik",
+        "Kaukasia",
+      ],
+      scores20: [1, 2, 3, 4],
+    },
+  ],
 };
 
 export default questionnaire;
