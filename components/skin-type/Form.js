@@ -18,7 +18,6 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Here you would typically handle the form submission, e.g., send it to an API
   };
 
   return (
@@ -29,7 +28,7 @@ const Form = () => {
         </div>
         <input
           type="text"
-          placeholder="Type here"
+          placeholder="Masukkan Disini"
           className="input input-bordered w-full max-w-xs"
           value={formData.name}
           onChange={handleChange}
@@ -41,7 +40,7 @@ const Form = () => {
         </div>
         <input
           type="text"
-          placeholder="Type here"
+          placeholder="Masukkan Disini"
           className="input input-bordered w-full max-w-xs"
           value={formData.age}
           onChange={handleChange}
@@ -58,7 +57,7 @@ const Form = () => {
           onChange={handleChange}
           className="input input-bordered w-full max-w-xs"
         >
-          <option value="">Select</option>
+          <option value="">Pilih Jenis Kelamin</option>
           <option value="male">Laki-Laki</option>
           <option value="female">Perempuan</option>
         </select>
