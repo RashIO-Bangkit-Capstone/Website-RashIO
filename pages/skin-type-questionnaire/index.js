@@ -15,7 +15,7 @@ export default function questionnaire() {
       <section className="body-font">
         <div className="max-w-7xl mx-auto flex px-12 md:px-32 py-24 flex-col items-center">
           <h1 className="text-primary text-2xl font-bold mb-6">
-            Skin Type Questionnaire
+            Baumann Skin Type Questionnaire
           </h1>
           <Form />
           <div id="skin-type">
