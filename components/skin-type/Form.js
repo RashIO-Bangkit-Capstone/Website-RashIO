@@ -32,7 +32,10 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center space-x-4 p-4">
-      <label htmlFor="name" className="form-control w-full max-w-xs">
+      <label
+        htmlFor="name"
+        className="form-control w-full max-w-xs input-lg w-full"
+      >
         <span className="label-text">Nama Lengkap</span>
         <input
           type="text"
@@ -49,7 +52,10 @@ const Form = () => {
         )}
       </label>
 
-      <label htmlFor="age" className="form-control w-full max-w-xs">
+      <label
+        htmlFor="age"
+        className="form-control w-full max-w-xs input-lg w-full"
+      >
         <span className="label-text">Umur</span>
         <input
           type="text"
@@ -62,7 +68,10 @@ const Form = () => {
         />
       </label>
 
-      <label htmlFor="gender" className="form-control w-full max-w-xs">
+      <label
+        htmlFor="gender"
+        className="form-control w-full max-w-xs input-lg w-full"
+      >
         <span className="label-text">Jenis Kelamin</span>
         <select
           id="gender"
