@@ -18,7 +18,7 @@ export default function Footer() {
                         <span className='uppercase font-bold text-lg text-primary'>Resources</span>
                         <a
                             className='link link-hover flex items-center text-base'
-                            href='https://github.com/RashIO-Bangkit-Capstone'
+                            href='https://github.com/RashIO-Bangkit-Capstone/android/releases/download/v0.1.0/rashio-release.apk'
                             target='_blank'>
                             <AiFillAndroid className='mr-2' />
                             Application
