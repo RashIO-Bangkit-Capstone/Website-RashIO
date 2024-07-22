@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import questions from "../../utils/questions";
 
+// Helper function to render questionnaire questions
 const renderQuestions = (questions, sectionIndex, handleAnswerChange) => {
   return questions.map((item, index) => (
     <div key={index} className="mb-8">
@@ -32,36 +34,73 @@ const renderQuestions = (questions, sectionIndex, handleAnswerChange) => {
 };
 
 const Questionnaire = () => {
-  const [answers, setAnswers] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    gender: "",
+  });
+
+  const [questionnaireAnswers, setQuestionnaireAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState({
+    form: false,
     section1: false,
     section2: false,
     section3: false,
     section4: false,
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [results, setResults] = useState("");
+  const [formInModal, setFormInModal] = useState({});
+
+  const router = useRouter();
 
   useEffect(() => {
+    // Load saved form data from session storage when the component mounts
+    const savedFormData = sessionStorage.getItem("formData");
+    if (savedFormData) {
+      const parsedFormData = JSON.parse(savedFormData);
+      setFormData(parsedFormData);
+      checkFormCompletion(parsedFormData);
+    }
+
     // Load saved answers from session storage when the component mounts
     const savedAnswers = sessionStorage.getItem("questionnaireAnswers");
     if (savedAnswers) {
       const parsedAnswers = JSON.parse(savedAnswers);
-      setAnswers(parsedAnswers);
-      checkCompletion(parsedAnswers);
+      setQuestionnaireAnswers(parsedAnswers);
+      checkQuestionnaireCompletion(parsedAnswers);
     }
   }, []);
 
-  const handleAnswerChange = (sectionIndex, questionIndex, score) => {
-    const newAnswers = {
-      ...answers,
-      [`${sectionIndex}-${questionIndex}`]: score,
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    const newFormData = {
+      ...formData,
+      [name]: value,
     };
-    setAnswers(newAnswers);
-    sessionStorage.setItem("questionnaireAnswers", JSON.stringify(newAnswers));
-    checkCompletion(newAnswers);
+    setFormData(newFormData);
+    checkFormCompletion(newFormData);
   };
 
-  const checkCompletion = (newAnswers) => {
+  const handleAnswerChange = (sectionIndex, questionIndex, score) => {
+    const newAnswers = {
+      ...questionnaireAnswers,
+      [`${sectionIndex}-${questionIndex}`]: score,
+    };
+    setQuestionnaireAnswers(newAnswers);
+    checkQuestionnaireCompletion(newAnswers);
+  };
+
+  const checkFormCompletion = (form) => {
+    const isFormCompleted =
+      form.name.trim() !== "" &&
+      form.age.trim() !== "" &&
+      form.gender.trim() !== "";
+    setIsCompleted((prev) => ({ ...prev, form: isFormCompleted }));
+  };
+
+  const checkQuestionnaireCompletion = (answers) => {
     const sections = [
       questions.section1,
       questions.section2,
@@ -78,421 +117,274 @@ const Questionnaire = () => {
     sections.forEach((section, index) => {
       const sectionKey = `section${index + 1}`;
       const allAnswered = section.every((_, questionIndex) =>
-        newAnswers.hasOwnProperty(`${index + 1}-${questionIndex}`)
+        answers.hasOwnProperty(`${index + 1}-${questionIndex}`)
       );
       completionStatus[sectionKey] = allAnswered;
     });
 
-    setIsCompleted(completionStatus);
+    setIsCompleted((prev) => ({ ...prev, ...completionStatus }));
   };
 
-  const calculateScores = () => {
+  const calculateSectionScores = () => {
     const sectionScores = [0, 0, 0, 0]; // Assuming 4 sections
-    for (const key in answers) {
+    for (const key in questionnaireAnswers) {
       const [sectionIndex] = key.split("-");
-      sectionScores[sectionIndex - 1] += answers[key];
+      sectionScores[sectionIndex - 1] += questionnaireAnswers[key];
     }
     return sectionScores;
   };
 
-  const handleSubmit = () => {
-    const allSectionsCompleted = Object.values(isCompleted).every(Boolean);
+  const calculateResults = (scores) => {
+    const results = {};
 
-    if (allSectionsCompleted) {
-      // Set submission status to true
-      setIsSubmitted(true);
+    // Section 1: Dry (D) or Oily (O)
+    results.section1 = scores[0] <= 26 ? "D" : "O";
+
+    // Section 2: Resistant (R) or Sensitive (S)
+    results.section2 = scores[1] <= 29 ? "R" : "S";
+
+    // Section 3: Non-pigmented (N) or Pigmented (P)
+    results.section3 = scores[2] <= 28 ? "N" : "P";
+
+    // Section 4: Tight (T) or Wrinkled (W)
+    results.section4 = scores[3] <= 40 ? "T" : "W";
+
+    // Combined result string
+    results.combined = `${results.section1}${results.section2}${results.section3}${results.section4}`;
+
+    return results;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check for form and questionnaire completion
+    const isFormComplete = formData.name && formData.age > 0 && formData.gender;
+    const isQuestionnaireComplete = Object.values(isCompleted).every(
+      (status) => status
+    );
+
+    if (isFormComplete && isQuestionnaireComplete) {
+      // Save data to session storage
+      sessionStorage.setItem("formData", JSON.stringify(formData));
+      sessionStorage.setItem(
+        "questionnaireAnswers",
+        JSON.stringify(questionnaireAnswers)
+      );
+
+      // Calculate section scores and results
+      const sectionScores = calculateSectionScores();
+      const result = calculateResults(sectionScores);
+
+      // Save results to session storage
+      sessionStorage.setItem("results", JSON.stringify(result));
+      setResults(result.combined);
+      setFormInModal(formData);
+
+      // Open modal
+      setIsModalOpen(true);
     } else {
-      alert("Please complete all sections before submitting.");
+      alert("Please complete the form and questionnaire before submitting.");
     }
   };
 
-  const sectionScores = calculateScores();
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const isFormValid =
+    isCompleted.form && Object.values(isCompleted).every(Boolean);
 
   return (
-    <div>
-      <div role="tablist" className="tabs tabs-lifted">
-        <input
-          type="radio"
-          name="my_tabs"
-          role="tab"
-          className="tab tab-label"
-          aria-label="OILY vs DRY"
-          style={{ width: "255px" }}
-          defaultChecked
-        />
-        <div
-          role="tabpanel"
-          className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-        >
-          <p className="text-black font-bold mb-8">
-            Bagian ini mengukur produksi minyak kulit dan kelembapan. Studi
-            menunjukkan bahwa anggapan seseorang tentang apakah kulit mereka
-            berminyak atau kering sering tidak akurat. Jangan biarkan prasangka
-            Anda atau pendapat orang lain tentang kulit Anda memengaruhi jawaban
-            Anda.
-          </p>
-          {renderQuestions(questions.section1, 1, handleAnswerChange)}
-        </div>
+    <>
+      <form onSubmit={handleSubmit} className="space-y-4 p-4">
+        <div className="flex space-x-4 p-4">
+          <label
+            htmlFor="name"
+            className="form-control w-full max-w-xs input-lg w-full"
+          >
+            <span className="label-text">Nama Lengkap</span>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Masukkan Disini"
+              className="input input-bordered w-full"
+              value={formData.name}
+              onChange={handleFormChange}
+              required
+            />
+          </label>
 
-        <input
-          type="radio"
-          name="my_tabs"
-          role="tab"
-          className="tab"
-          aria-label="SENSITIVE vs RESISTANT"
-          style={{ width: "255px" }}
-        />
-        <div
-          role="tabpanel"
-          className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-        >
-          <p className="text-black font-bold mb-8">
-            Bagian ini mengukur kecenderungan kulit Anda untuk mengalami
-            jerawat, kemerahan, kemerahan, dan gatal, semua tanda-tanda kulit
-            sensitif.
-          </p>
-          {renderQuestions(questions.section2, 2, handleAnswerChange)}
-        </div>
+          <label
+            htmlFor="age"
+            className="form-control w-full max-w-xs input-lg w-full"
+          >
+            <span className="label-text">Umur</span>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              placeholder="Masukkan Disini"
+              className="input input-bordered w-full"
+              value={formData.age}
+              onChange={handleFormChange}
+              min="0"
+              step="1"
+              required
+            />
+          </label>
 
-        <input
-          type="radio"
-          name="my_tabs"
-          role="tab"
-          className="tab"
-          aria-label="PIGMENTED vs NON-PIGMENTED"
-          style={{ width: "255px" }}
-        />
-        <div
-          role="tabpanel"
-          className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-        >
-          <p className="text-black font-bold mb-8">
-            Bagian ini mengukur kecenderungan kulit Anda untuk membentuk
-            melanin, pigmen kulit yang menghasilkan warna kulit yang lebih gelap
-            serta bintik-bintik gelap, tahi lalat, dan daerah gelap setelah
-            trauma. Melanin juga membantu Anda berkulit cokelat daripada
-            terbakar.
-          </p>
-          {renderQuestions(questions.section3, 3, handleAnswerChange)}
+          <label
+            htmlFor="gender"
+            className="form-control w-full max-w-xs input-lg w-full"
+          >
+            <span className="label-text">Jenis Kelamin</span>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleFormChange}
+              className="input input-bordered w-full"
+              required
+            >
+              <option value="">Pilih Jenis Kelamin</option>
+              <option value="Laki-Laki">Laki-Laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </label>
         </div>
+        <div role="tablist" className="tabs tabs-lifted">
+          <input
+            type="radio"
+            name="my_tabs"
+            role="tab"
+            className="tab tab-label"
+            aria-label="OILY vs DRY"
+            style={{ width: "255px" }}
+            defaultChecked
+          />
+          <div
+            role="tabpanel"
+            className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+          >
+            <p className="text-black font-bold mb-8">
+              Bagian ini mengukur produksi minyak kulit dan kelembapan. Studi
+              menunjukkan bahwa anggapan seseorang tentang apakah kulit mereka
+              berminyak atau kering sering tidak akurat. Jangan biarkan
+              prasangka Anda atau pendapat orang lain tentang kulit Anda
+              memengaruhi jawaban Anda.
+            </p>
+            {renderQuestions(questions.section1, 1, handleAnswerChange)}
+          </div>
 
-        <input
-          type="radio"
-          name="my_tabs"
-          role="tab"
-          className="tab"
-          aria-label="WRINKLED vs TIGHT"
-          style={{ width: "243px" }}
-        />
-        <div
-          role="tabpanel"
-          className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-        >
-          <p className="text-black font-bold mb-8">
-            Bagian ini mengukur kecenderungan Anda terhadap kerutan, serta
-            seberapa keriput Anda saat ini. Beberapa pasien saya mengaku bahwa
-            mereka berbuat curang pada bagian ini hingga terlihat seperti huruf
-            T - setelah saya memergoki mereka melakukannya. Jangan lakukan itu!
-            Anda hanya menipu diri sendiri dengan menggunakan terapi pencegahan
-            yang dapat mencegah keriput. Mengubah kebiasaan Anda sekarang dapat
-            mengubah skor Anda di masa depan dari W ke T. Jadi jujurlah dan
-            dapatkan perawatan yang tepat jika Anda membutuhkannya.
-          </p>
-          {renderQuestions(questions.section4, 4, handleAnswerChange)}
+          <input
+            type="radio"
+            name="my_tabs"
+            role="tab"
+            className="tab"
+            aria-label="SENSITIVE vs RESISTANT"
+            style={{ width: "255px" }}
+          />
+          <div
+            role="tabpanel"
+            className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+          >
+            <p className="text-black font-bold mb-8">
+              Bagian ini mengukur kecenderungan kulit Anda untuk mengalami
+              jerawat, kemerahan, kemerahan, dan gatal, semua tanda-tanda kulit
+              sensitif.
+            </p>
+            {renderQuestions(questions.section2, 2, handleAnswerChange)}
+          </div>
+
+          <input
+            type="radio"
+            name="my_tabs"
+            role="tab"
+            className="tab"
+            aria-label="PIGMENTED vs NON-PIGMENTED"
+            style={{ width: "255px" }}
+          />
+          <div
+            role="tabpanel"
+            className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+          >
+            <p className="text-black font-bold mb-8">
+              Bagian ini mengukur kecenderungan kulit Anda untuk membentuk
+              melanin, pigmen kulit yang menghasilkan warna kulit yang lebih
+              gelap serta bintik-bintik gelap, tahi lalat, dan daerah gelap
+              setelah trauma. Melanin juga membantu Anda berkulit cokelat
+              daripada terbakar.
+            </p>
+            {renderQuestions(questions.section3, 3, handleAnswerChange)}
+          </div>
+
+          <input
+            type="radio"
+            name="my_tabs"
+            role="tab"
+            className="tab"
+            aria-label="WRINKLED vs TIGHT"
+            style={{ width: "243px" }}
+          />
+          <div
+            role="tabpanel"
+            className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+          >
+            <p className="text-black font-bold mb-8">
+              Bagian ini mengukur kecenderungan Anda terhadap kerutan, serta
+              seberapa keriput Anda saat ini. Beberapa pasien saya mengaku bahwa
+              mereka berbuat curang pada bagian ini hingga terlihat seperti
+              huruf T - setelah saya memergoki mereka melakukannya. Jangan
+              lakukan itu! Anda hanya akan menyakiti diri sendiri.
+            </p>
+            {renderQuestions(questions.section4, 4, handleAnswerChange)}
+          </div>
         </div>
-      </div>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className={`mt-4 p-2 bg-white hover:bg-[#876445] hover:text-white hover:outline-white outline outline-2 outline-[#876445] font-semibold text-[#876445] rounded ${
+              isFormValid ? "btn-primary" : "btn-disabled"
+            }`}
+            disabled={!isFormValid}
+          >
+            Submit
+          </button>
+        </div>
+      </form>
 
-      {/* Display the calculated scores only after submission */}
-      {isSubmitted && (
-        <div className="mt-8">
-          <h2 className="text-black font-bold">Results:</h2>
-          <p className="text-black">OILY vs DRY Score: {sectionScores[0]}</p>
-          <p className="text-black">
-            SENSITIVE vs RESISTANT Score: {sectionScores[1]}
-          </p>
-          <p className="text-black">
-            PIGMENTED vs NON-PIGMENTED Score: {sectionScores[2]}
-          </p>
-          <p className="text-black">
-            WRINKLED vs TIGHT Score: {sectionScores[3]}
-          </p>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="modal modal-open">
+            <div className="modal-box">
+              <h2 className="text-xl font-bold pb-4">Your Results</h2>
+              <p className="">
+                <strong>Nama Lengkap:</strong> {formInModal.name}
+              </p>
+              <p className="">
+                <strong>Umur:</strong> {formInModal.age}
+              </p>
+              <p className="">
+                <strong>Jenis Kelamin:</strong> {formInModal.gender}
+              </p>
+              <p className="py-4">
+                Your skin type results are:{" "}
+                <span className="font-semibold">{results}</span>
+              </p>
+              <div className="modal-action">
+                <button className="btn" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
-
-      <div className="flex justify-end">
-        <button
-          onClick={handleSubmit}
-          className="mt-4 p-2 bg-[#9B7E65] text-white rounded"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
 export default Questionnaire;
-
-// import React from "react";
-// import questions from "../../utils/questions";
-// import { useState } from "react";
-
-// const renderQuestions = (questions, sectionIndex) => {
-//   return questions.map((item, index) => (
-//     <div key={index} className="mb-8">
-//       <h3 className="font-bold text-black">{item.question}</h3>
-//       <ul className="text-black">
-//         {item.answers.map((answer, answerIndex) => (
-//           <li key={answerIndex}>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name={`question-${sectionIndex}-${index}`}
-//                 value={item.scores[answerIndex]}
-//                 className="mr-2 mt-2 radio radio-xs checked:bg-[#876445]"
-//               />
-//               {answer}
-//             </label>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   ));
-// };
-
-// const Questionnaire = (index) => {
-//   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-//   const handleTabChange = (index) => {
-//     setActiveTabIndex(index);
-//   };
-
-//   return (
-//     <div role="tablist" className="tabs tabs-lifted">
-//       <input
-//         type="radio"
-//         name="my_tabs"
-//         role="tab"
-//         // className="tab"
-//         aria-label="OILY vs DRY"
-//         style={{ width: "255px", textAlign: "center" }}
-//         key={index}
-//         className={`tab tab-label cursor-pointer ${
-//           index === activeTabIndex ? "text-primary" : "text-black"
-//         }`}
-//         checked={index === activeTabIndex}
-//         onChange={() => handleTabChange(index)}
-//       />
-//       <div
-//         role="tabpanel"
-//         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-//       >
-//         <p className="text-black font-bold mb-8">
-//           Bagian ini mengukur produksi minyak kulit dan kelembapan. Studi
-//           menunjukkan bahwa anggapan seseorang tentang apakah kulit mereka
-//           berminyak atau kering sering tidak akurat. Jangan biarkan prasangka
-//           Anda atau pendapat orang lain tentang kulit Anda memengaruhi jawaban
-//           Anda.
-//         </p>
-//         {renderQuestions(questions.section1, 0)}
-//       </div>
-
-//       <input
-//         type="radio"
-//         name="my_tabs"
-//         role="tab"
-//         // className="tab"
-//         aria-label="SENSITIVE vs RESISTANT"
-//         style={{ width: "255px" }}
-//         key={index}
-//         className={`tab tab-label cursor-pointer ${
-//           index === activeTabIndex ? "text-primary" : "text-black"
-//         }`}
-//         checked={index === activeTabIndex}
-//         onChange={() => handleTabChange(index)}
-//       />
-//       <div
-//         role="tabpanel"
-//         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-//       >
-//         <p className="text-black font-bold mb-8">
-//           Bagian ini mengukur kecenderungan kulit Anda untuk mengalami jerawat,
-//           kemerahan, kemerahan, dan gatal, semua tanda-tanda kulit sensitif.
-//         </p>
-//         {renderQuestions(questions.section2, 1)}
-//       </div>
-
-//       <input
-//         type="radio"
-//         name="my_tabs"
-//         role="tab"
-//         // className="tab"
-//         aria-label="PIGMENTED vs NON-PIGMENTED"
-//         style={{ width: "255px" }}
-//         key={index}
-//         className={`tab tab-label cursor-pointer ${
-//           index === activeTabIndex ? "text-primary" : "text-black"
-//         }`}
-//         checked={index === activeTabIndex}
-//         onChange={() => handleTabChange(index)}
-//       />
-//       <div
-//         role="tabpanel"
-//         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-//       >
-//         <p className="text-black font-bold mb-8">
-//           Bagian ini mengukur kecenderungan kulit Anda untuk membentuk melanin,
-//           pigmen kulit yang menghasilkan warna kulit yang lebih gelap serta
-//           bintik-bintik gelap, tahi lalat, dan daerah gelap setelah trauma.
-//           Melanin juga membantu Anda berkulit cokelat daripada terbakar.
-//         </p>
-//         {renderQuestions(questions.section3, 2)}
-//       </div>
-
-//       <input
-//         type="radio"
-//         name="my_tabs"
-//         role="tab"
-//         // className="tab"
-//         aria-label="WRINKLED vs TIGHT"
-//         style={{ width: "243px" }}
-//         key={index}
-//         className={`tab tab-label cursor-pointer ${
-//           index === activeTabIndex ? "text-primary" : "text-black"
-//         }`}
-//         checked={index === activeTabIndex}
-//         onChange={() => handleTabChange(index)}
-//       />
-//       <div
-//         role="tabpanel"
-//         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
-//       >
-//         <p className="text-black font-bold mb-8">
-//           Bagian ini mengukur kecenderungan Anda terhadap kerutan, serta
-//           seberapa keriput Anda saat ini. Beberapa pasien saya mengaku bahwa
-//           mereka berbuat curang pada bagian ini hingga terlihat seperti huruf T
-//           - setelah saya memergoki mereka melakukannya. Jangan lakukan itu! Anda
-//           hanya menipu diri sendiri dengan menggunakan terapi pencegahan yang
-//           dapat mencegah keriput. Mengubah kebiasaan Anda sekarang dapat
-//           mengubah skor Anda di masa depan dari W ke T. Jadi jujurlah dan
-//           dapatkan perawatan yang tepat jika Anda membutuhkannya.
-//         </p>
-//         {renderQuestions(questions.section4, 3)}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Questionnaire;
-
-// import React, { useState } from "react";
-// import questions from "../../utils/questions";
-
-// const renderQuestions = (questions, sectionIndex) => {
-//   return questions.map((item, index) => (
-//     <div key={index} className="mb-8">
-//       <h3 className="font-bold text-black">{item.question}</h3>
-//       <ul className="text-black">
-//         {item.answers.map((answer, answerIndex) => (
-//           <li key={answerIndex}>
-//             <label>
-//               <input
-//                 type="radio"
-//                 name={`question-${sectionIndex}-${index}`}
-//                 value={item.scores[answerIndex]}
-//                 className="mr-2 mt-2 radio radio-xs checked:bg-[#876445]"
-//               />
-//               {answer}
-//             </label>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   ));
-// };
-
-// const Questionnaire = () => {
-//   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-//   const handleTabChange = (index) => {
-//     setActiveTabIndex(index);
-//   };
-
-//   const tabs = [
-//     "OILY vs DRY",
-//     "SENSITIVE vs RESISTANT",
-//     "PIGMENTED vs NON-PIGMENTED",
-//     "WRINKLED vs TIGHT",
-//   ];
-
-//   const content = [
-//     <div key="section1">
-//       <p className="text-black font-bold mb-8">
-//         Bagian ini mengukur produksi minyak kulit dan kelembapan. Studi
-//         menunjukkan bahwa anggapan seseorang tentang apakah kulit mereka
-//         berminyak atau kering sering tidak akurat. Jangan biarkan prasangka Anda
-//         atau pendapat orang lain tentang kulit Anda memengaruhi jawaban Anda.
-//       </p>
-//       {renderQuestions(questions.section1, 0)}
-//     </div>,
-//     <div key="section2">
-//       <p className="text-black font-bold mb-8">
-//         Bagian ini mengukur kecenderungan kulit Anda untuk mengalami jerawat,
-//         kemerahan, kemerahan, dan gatal, semua tanda-tanda kulit sensitif.
-//       </p>
-//       {renderQuestions(questions.section2, 1)}
-//     </div>,
-//     <div key="section3">
-//       <p className="text-black font-bold mb-8">
-//         Bagian ini mengukur kecenderungan kulit Anda untuk membentuk melanin,
-//         pigmen kulit yang menghasilkan warna kulit yang lebih gelap serta
-//         bintik-bintik gelap, tahi lalat, dan daerah gelap setelah trauma.
-//         Melanin juga membantu Anda berkulit cokelat daripada terbakar.
-//       </p>
-//       {renderQuestions(questions.section3, 2)}
-//     </div>,
-//     <div key="section4">
-//       <p className="text-black font-bold mb-8">
-//         Bagian ini mengukur kecenderungan Anda terhadap kerutan, serta seberapa
-//         keriput Anda saat ini. Beberapa pasien saya mengaku bahwa mereka berbuat
-//         curang pada bagian ini hingga terlihat seperti huruf T - setelah saya
-//         memergoki mereka melakukannya. Jangan lakukan itu! Anda hanya menipu
-//         diri sendiri dengan menggunakan terapi pencegahan yang dapat mencegah
-//         keriput. Mengubah kebiasaan Anda sekarang dapat mengubah skor Anda di
-//         masa depan dari W ke T. Jadi jujurlah dan dapatkan perawatan yang tepat
-//         jika Anda membutuhkannya.
-//       </p>
-//       {renderQuestions(questions.section4, 3)}
-//     </div>,
-//   ];
-
-//   return (
-//     <div role="tablist" className="tabs tabs-lifted">
-//       {tabs.map((tabLabel, index) => (
-//         <label
-//           key={index}
-//           className={`tab tab-label cursor-pointer ${
-//             index === activeTabIndex ? "text-primary" : "text-black"
-//           }`}
-//           style={{ width: "255px", textAlign: "center" }}
-//         >
-//           <input
-//             type="radio"
-//             name="my_tabs"
-//             role="tab"
-//             aria-label={tabLabel}
-//             style={{ display: "none" }}
-//             checked={index === activeTabIndex}
-//             onChange={() => handleTabChange(index)}
-//           />
-//           <span>{tabLabel}</span>
-//         </label>
-//       ))}
-//       <div className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-//         {content[activeTabIndex]}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Questionnaire;

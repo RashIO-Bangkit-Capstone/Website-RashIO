@@ -2,7 +2,7 @@ const questions = {
   section1: [
     {
       question:
-        "Setelah mencuci wajah Anda, jangan mengoleskan pelembap, tabir surya, toner, bedak, atau produk lainnya. Dua hingga tiga jam kemudian, lihatlah di cermin di bawah cahaya terang. Dahi dan pipi Anda terasa atau terlihat.",
+        "Setelah mencuci wajah Anda, jangan mengoleskan pelembap, tabir surya(sunscreen), toner, bedak, atau produk lainnya. Dua hingga tiga jam kemudian, lihatlah di cermin di bawah cahaya terang. Dahi dan pipi Anda terasa atau terlihat.",
       answers: [
         "Sangat kasar, bersisik, atau abu-abu",
         "Ketat",
@@ -35,7 +35,7 @@ const questions = {
     },
     {
       question:
-        "Ketika berada dalam lingkungan dengan kelembaban rendah, jika Anda tidak menggunakan pelembap atau tabir surya, kulit wajah Anda dapat menjadi",
+        "Ketika berada dalam lingkungan dengan kelembaban rendah, jika Anda tidak menggunakan pelembap atau tabir surya(sunscreen), kulit wajah Anda dapat menjadi",
       answers: [
         "Terasa sangat kering atau retak",
         "Terasa kencang",
@@ -284,7 +284,7 @@ const questions = {
     },
     {
       question:
-        "Anda mengalami kemerahan, gatal, atau bengkak akibat riasan, tabir surya, atau produk perawatan kulit:",
+        "Anda mengalami kemerahan, gatal, atau bengkak akibat riasan, tabir surya(sunscreen), atau produk perawatan kulit:",
       answers: [
         "Tidak pernah",
         "Kadang",
@@ -350,7 +350,7 @@ const questions = {
         "Tidak yakin",
         "Sedikit memburuk",
         "Jauh lebih buruk",
-        "Saya menggunakan tabir surya di wajah setiap hari dan tidak pernah terpapar sinar matahari. (Catatan: jika Anda menggunakan perlindungan matahari terus-menerus karena Anda khawatir bisa mendapatkan bintik gelap atau tahi lalat, jawab(D)",
+        "Saya menggunakan tabir surya(sunscreen) di wajah setiap hari dan tidak pernah terpapar sinar matahari. (Catatan: jika Anda menggunakan perlindungan matahari terus-menerus karena Anda khawatir bisa mendapatkan bintik gelap atau tahi lalat, jawab(D)",
       ],
       scores: [1, 2, 3, 4, 2.5],
     },
