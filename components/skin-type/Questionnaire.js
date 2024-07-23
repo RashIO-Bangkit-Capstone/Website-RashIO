@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import questions from "../../utils/questions";
+import { getSkinDescription } from "../../utils/skinDescriptions";
 
 // Helper function to render questionnaire questions
 const renderQuestions = (questions, sectionIndex, handleAnswerChange) => {
@@ -52,6 +53,7 @@ const Questionnaire = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [results, setResults] = useState("");
   const [formInModal, setFormInModal] = useState({});
+  const [skinDescription, setSkinDescription] = useState({});
 
   const router = useRouter();
 
@@ -180,6 +182,10 @@ const Questionnaire = () => {
       sessionStorage.setItem("results", JSON.stringify(result));
       setResults(result.combined);
       setFormInModal(formData);
+
+      // Fetch and set the skin description based on the result
+      const description = getSkinDescription(result.combined);
+      setSkinDescription(description);
 
       // Open modal
       setIsModalOpen(true);
@@ -357,29 +363,51 @@ const Questionnaire = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="modal modal-open">
-            <div className="modal-box">
-              <h2 className="text-xl font-bold pb-4">Your Results</h2>
-              <p className="">
-                <strong>Nama Lengkap:</strong> {formInModal.name}
-              </p>
-              <p className="">
-                <strong>Umur:</strong> {formInModal.age}
-              </p>
-              <p className="">
-                <strong>Jenis Kelamin:</strong> {formInModal.gender}
-              </p>
-              <p className="py-4">
-                Your skin type results are:{" "}
-                <span className="font-semibold">{results}</span>
-              </p>
-              <div className="modal-action">
-                <button className="btn" onClick={closeModal}>
-                  Close
-                </button>
+        <div className="modal modal-open" onClick={closeModal}>
+          <div
+            className="modal-box relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl text-center font-bold pb-4 bg-[#F3F0EC] rounded">
+              Hasil Diagnosa
+            </h2>
+            <table className="table w-full mb-4">
+              <tbody>
+                <tr>
+                  <th className="text-left">Nama Lengkap</th>
+                  <td>{formInModal.name}</td>
+                </tr>
+                <tr>
+                  <th className="text-left">Umur</th>
+                  <td>{formInModal.age}</td>
+                </tr>
+                <tr>
+                  <th className="text-left">Jenis Kelamin</th>
+                  <td>{formInModal.gender}</td>
+                </tr>
+                <tr>
+                  <th className="text-left">Jenis Kulit</th>
+                  <td className="font-semibold">{results}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            {skinDescription && (
+              <div className="collapse collapse-arrow border border-base-300 rounded-box">
+                <input
+                  type="checkbox"
+                  className="peer"
+                  id="skinDescriptionAccordion"
+                />
+                <div className="collapse-title text-xl font-medium">
+                  Informasi Jenis Kulit
+                </div>
+                <div className="collapse-content">
+                  <h3 className="font-bold">{skinDescription.title}</h3>
+                  <p>{skinDescription.description}</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
