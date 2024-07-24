@@ -365,32 +365,44 @@ const Questionnaire = () => {
       {isModalOpen && (
         <div className="modal modal-open" onClick={closeModal}>
           <div
-            className="modal-box relative"
+            className="modal-box relative w-3/4 max-w-5xl"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl text-center font-bold pb-4 bg-[#F3F0EC] rounded">
               Hasil Diagnosa
             </h2>
-            <table className="table w-full mb-4">
-              <tbody>
-                <tr>
-                  <th className="text-left">Nama Lengkap</th>
-                  <td>{formInModal.name}</td>
-                </tr>
-                <tr>
-                  <th className="text-left">Umur</th>
-                  <td>{formInModal.age}</td>
-                </tr>
-                <tr>
-                  <th className="text-left">Jenis Kelamin</th>
-                  <td>{formInModal.gender}</td>
-                </tr>
-                <tr>
-                  <th className="text-left">Jenis Kulit</th>
-                  <td className="font-semibold">{results}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="w-1/2">
+              <table className="table w-full mt-4 mb-4 ml-4 border-none">
+                <tbody>
+                  <tr className="border-none ">
+                    <th className="text-left font-normal py-1">Nama Lengkap</th>
+                    <td className="font-bold text-left py-1">
+                      {formInModal.name}
+                    </td>
+                  </tr>
+                  <tr className="border-none">
+                    <th className="text-left font-normal py-1">Umur</th>
+                    <td className="font-bold text-left py-1">
+                      {formInModal.age}
+                    </td>
+                  </tr>
+                  <tr className="border-none">
+                    <th className="text-left font-normal py-1">
+                      Jenis Kelamin
+                    </th>
+                    <td className="font-bold text-left py-1">
+                      {formInModal.gender}
+                    </td>
+                  </tr>
+                  <tr className="border-none">
+                    <th className="text-left font-normal py-1">Jenis Kulit</th>
+                    <td className="font-bold text-left font-lg py-1">
+                      {results}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             {skinDescription && (
               <div className="collapse collapse-arrow border border-base-300 rounded-box">
@@ -399,7 +411,7 @@ const Questionnaire = () => {
                   className="peer"
                   id="skinDescriptionAccordion"
                 />
-                <div className="collapse-title text-xl font-medium">
+                <div className="collapse-title text-lg font-normal">
                   Informasi Jenis Kulit
                 </div>
                 <div className="collapse-content">
