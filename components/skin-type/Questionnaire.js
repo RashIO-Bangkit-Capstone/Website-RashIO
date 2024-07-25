@@ -405,20 +405,38 @@ const Questionnaire = () => {
             </div>
 
             {skinDescription && (
-              <div className="collapse collapse-arrow border border-base-300 rounded-box">
-                <input
-                  type="checkbox"
-                  className="peer"
-                  id="skinDescriptionAccordion"
-                />
-                <div className="collapse-title text-lg font-normal">
-                  Informasi Jenis Kulit
+              <>
+                <div className="collapse collapse-arrow border border-base-300 rounded-box mt-4">
+                  <input
+                    type="checkbox"
+                    className="peer"
+                    id="skinDescriptionAccordion"
+                  />
+                  <div className="collapse-title text-lg font-normal">
+                    Informasi Jenis Kulit
+                  </div>
+                  <div className="collapse-content">
+                    <h3 className="font-bold text-lg">
+                      {skinDescription.title}
+                    </h3>
+                    <p>{skinDescription.description}</p>
+                  </div>
                 </div>
-                <div className="collapse-content">
-                  <h3 className="font-bold">{skinDescription.title}</h3>
-                  <p>{skinDescription.description}</p>
+
+                <div className="collapse collapse-arrow border border-base-300 rounded-box mt-4">
+                  <input
+                    type="checkbox"
+                    className="peer"
+                    id="skinSolutionAccordion"
+                  />
+                  <div className="collapse-title text-lg font-normal">
+                    Solusi Perawatan
+                  </div>
+                  <div className="collapse-content">
+                    <p>{skinDescription.solution}</p>
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>
