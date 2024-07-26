@@ -248,10 +248,12 @@ const Questionnaire = () => {
               name="gender"
               value={formData.gender}
               onChange={handleFormChange}
-              className="input input-bordered w-full"
+              className="w-full select select-bordered"
               required
             >
-              <option value="">Pilih Jenis Kelamin</option>
+              <option disabled selected>
+                Pilih Jenis Kelamin
+              </option>
               <option value="Laki-Laki">Laki-Laki</option>
               <option value="Perempuan">Perempuan</option>
             </select>
