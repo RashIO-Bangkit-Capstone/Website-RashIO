@@ -128,7 +128,7 @@ const Questionnaire = () => {
   };
 
   const calculateSectionScores = () => {
-    const sectionScores = [0, 0, 0, 0]; // Assuming 4 sections
+    const sectionScores = [0, 0, 0, 0]; // 4 sections
     for (const key in questionnaireAnswers) {
       const [sectionIndex] = key.split("-");
       sectionScores[sectionIndex - 1] += questionnaireAnswers[key];
