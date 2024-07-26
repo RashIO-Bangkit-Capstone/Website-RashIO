@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import questions from "../../utils/questions";
 import { getSkinDescription } from "../../utils/skinDescriptions";
 
@@ -54,8 +53,6 @@ const Questionnaire = () => {
   const [results, setResults] = useState("");
   const [formInModal, setFormInModal] = useState({});
   const [skinDescription, setSkinDescription] = useState({});
-
-  const router = useRouter();
 
   useEffect(() => {
     // Load saved form data from session storage when the component mounts
