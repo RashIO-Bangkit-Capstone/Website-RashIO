@@ -369,7 +369,7 @@ const Questionnaire = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl text-center font-bold pb-4 bg-[#F3F0EC] rounded">
-              Hasil Diagnosa
+              Hasil
             </h2>
             <div className="w-1/2">
               <table className="table w-full mt-4 mb-4 ml-4 border-none">
