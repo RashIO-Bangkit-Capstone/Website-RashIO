@@ -251,9 +251,7 @@ const Questionnaire = () => {
               className="w-full select select-bordered"
               required
             >
-              <option disabled selected>
-                Pilih Jenis Kelamin
-              </option>
+              <option value="">Pilih Jenis Kelamin</option>
               <option value="Laki-Laki">Laki-Laki</option>
               <option value="Perempuan">Perempuan</option>
             </select>
