@@ -1,5 +1,10 @@
+const { default: daisyui } = require("daisyui");
+
 module.exports = {
   purge: ["./components/**/*.js", "./pages/**/*.js"],
+  daisyui: {
+    themes: ["light"],
+  },
   theme: {
     extend: {
       colors: {
@@ -22,10 +27,10 @@ module.exports = {
         gray: "#434343",
         white: "#FFFFFF",
       },
-    }
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [require("daisyui")]
+  plugins: [require("daisyui")],
 };

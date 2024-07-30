@@ -26,7 +26,7 @@ export default function Features() {
                     <HiOutlineCamera className="text-4xl" />
                   </div>
                 </div>
-                <p className="text-right">
+                <p className="text-right text-white">
                   You fell have disease at your skin? Take a photo and our
                   trained Machine Learning will help you to diagnose it. So you
                   can get the right treatment as soon as possible.
@@ -46,9 +46,9 @@ export default function Features() {
                     </span>
                   </div>
                 </div>
-                <p className="text-left">
-                  You have a problem with your camera? Don't worry. you can upload the image
-                  from you gallery.
+                <p className="text-left text-white">
+                  You have a problem with your camera? Don't worry. you can
+                  upload the image from you gallery.
                 </p>
               </div>
             </div>
@@ -65,8 +65,9 @@ export default function Features() {
                     <HiOutlineBookOpen className="text-4xl" />
                   </div>
                 </div>
-                <p className="text-right">
-                  Explore your knowledge about healthy with reading the article in our app.
+                <p className="text-right text-white">
+                  Explore your knowledge about healthy with reading the article
+                  in our app.
                 </p>
               </div>
             </div>
@@ -81,7 +82,7 @@ export default function Features() {
                     <span className="font-semibold px-3">Saved history</span>
                   </div>
                 </div>
-                <p className="text-left">
+                <p className="text-left text-white">
                   Monitoring your history of disease and treatment. So you can
                   know your health condition.
                 </p>
