@@ -83,6 +83,16 @@ const TermsCondition = () => {
                 relying entirely on this functionality of the application.
             </p>
 
+            <h2 className='font-bold mt-4'>Medical Disclaimer</h2>
+
+            <p className='mb-4'>
+                The Application is designed to help users identify potential skin diseases and suggest early treatment
+                options. However, it should not be considered a substitute for professional medical advice, diagnosis,
+                or treatment. Always seek the advice of your dermatologist or other qualified healthcare provider with
+                any questions you may have regarding a medical condition. The Application is not intended to replace
+                professional medical diagnosis or treatment.
+            </p>
+
             <p>
                 The Service Provider may wish to update the application at some point. The application is currently
                 available as per the requirements for the operating system (and for any additional systems they decide
